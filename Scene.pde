@@ -31,9 +31,9 @@ class Scene {
    * Description: Resets the room to a random state
    */
    Scene() {
-    this.roomWidth = roomWidth;
-    this.roomHeight = roomHeight;
-    this.room = room;
+    this.roomWidth = 12;
+    this.roomHeight = 12;
+    this.room = new WorldObject[roomWidth][roomHeight];
     this.entry = entry;
     this.player = player;
     this.enemies = enemies;
@@ -317,11 +317,43 @@ class Scene {
    */
 
   public void draw() {
-    // Determine the floor size
-    float size = min((float)width / (this.roomWidth + 2), (float)height / (this.roomHeight + 2));
 
+    int seed = 12345;
+    randomSeed(seed);
+    
+    float size = min((float)width / (this.roomWidth + 2), (float)height / (this.roomHeight + 2));
+    
     //----------------------------\\
     // TODO: COMPLETE THIS METHOD \\
     //----------------------------\\
+
+    int numTile = 12;
+    int tileSize = height/numTile;
+
+    PShape tile = createShape(RECT, 0, 0, size, size);
+    
+    int xInit = (width - (int)(this.roomWidth * size)) / 2;
+    int x = xInit;
+    
+    int yInit = (height - (int)(this.roomHeight * size)) / 2;
+    int y = yInit;
+
+    int fillColor = 255;
+
+    for (int i=0; i<this.roomHeight; i++){
+      for (int z=0; z<this.roomWidth; z++){
+            tile.setFill(color(fillColor));
+
+            shape(tile, x, y);
+            x += size;
+            println("x: " + x);
+            println("y: " +  + y);
+
+            println("tileSize: " + size);
+            fillColor -= 1;
+        }
+      y += yInit;
+      x = xInit;
+      }
   }
 }
