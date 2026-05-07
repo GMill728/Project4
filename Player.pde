@@ -137,9 +137,17 @@ class Player extends Actor {
   public void keyReleased() {
     // Convert to uppercase
     char released = Character.toUpperCase(key);
-
+  
     if (debounce.getOrDefault(released, false)) {
       debounce.put(released, false);
     }
+  }
+
+
+  public void draw(){
+    rect(0,0,1,1);
+    pushMatrix();
+    fill(0,255,0);
+    popMatrix();
   }
 }
