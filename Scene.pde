@@ -51,6 +51,14 @@ class Scene {
     this.doors = doors;
    }
 
+
+    /**
+   *      Method: private reset()
+   *  Parameters: Direction entry - The direction from which
+   *                                the player entered the room
+   *      Return: void
+   * Description: Resets the room to a random state
+   */
   private void reset(Direction entry) {
     if (entry == null) {
       return;
@@ -327,8 +335,11 @@ class Scene {
     // TODO: COMPLETE THIS METHOD \\
     //----------------------------\\
 
+    //TODO: populate each tile in this 2d array with a bool for isEmpty and then also a world object.
     int numTile = 12;
     int tileSize = height/numTile;
+
+    //* drawTiles(int numTile, float size)
 
     PShape tile = createShape(RECT, 0, 0, size, size);
     
@@ -342,6 +353,10 @@ class Scene {
 
     for (int i=0; i<this.roomHeight; i++){
       for (int z=0; z<this.roomWidth; z++){
+
+            //? room[z][i] = new WorldObject-type();
+            //^ this will spawn a world object at a given tile
+
             tile.setFill(color(fillColor));
 
             shape(tile, x, y);
