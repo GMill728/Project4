@@ -69,12 +69,29 @@ class Scene {
     if (entry == null) {
       return;
     }
+
+    //! clear all things once they exist i.e. thing.clear();
+    room = new WorldObject [roomWidth][roomHeight];
+    
     randomSeed(seed);
 
     for (int y = 0; y < roomHeight; y++) {
         for (int x = 0; x < roomWidth; x++) {
 
             float r = random(1);
+
+            boolean isDoor = false;
+
+            if ((x == roomWidth / 2 && y == 0)||(x == roomWidth / 2 && y == roomHeight - 1)
+            ||(x == 0 && y == roomHeight / 2)||(x == roomWidth - 1 && y == roomHeight / 2))
+            {
+              isDoor = true;
+            }
+
+            if (isDoor) {
+                room[x][y] = new devDoor();
+                continue;
+            }
 
             if (r < 0.2) { //room[x][y] = new WorldObject();
               tmpObj obj = new tmpObj();
@@ -94,6 +111,8 @@ class Scene {
             else { room[x][y] = null; }
         }
       }
+      
+      //! place player
   }
 
   /**
@@ -404,7 +423,7 @@ class Scene {
 
             
         }
-      y += yInit; //? should this be size?
+      y += size; //? should this be size?
       x = xInit;
       }
   }

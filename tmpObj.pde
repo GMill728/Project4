@@ -15,7 +15,6 @@ class tmpObj extends WorldObject{
     } else {
         fill(0);
     }
-    noStroke();
     circle(0, 0, 20);
     }
 }
