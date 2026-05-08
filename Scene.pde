@@ -95,9 +95,8 @@ class Scene {
             }
 
             if (r < 0.2) { //room[x][y] = new WorldObject();
-              tmpObj obj = new tmpObj();
-              obj.clr = 1;
-              room[x][y] = obj;
+              Enemy enemy = new Enemy(Direction.SOUTH);//randomize direction
+              room[x][y] = enemy;
             } 
             else if (r < 0.3) { //room[x][y] = new WorldObject();
               tmpObj obj = new tmpObj();
@@ -376,20 +375,19 @@ class Scene {
     
     float size = min((float)width / (this.roomWidth + 2), (float)height / (this.roomHeight + 2));
     
-    int numTile = 12;
-    int tileSize = height/numTile;
+    int numTile = 19;
 
     PShape tile = createShape(RECT, 0, 0, size, size);
     
     int xInit = (width-(int)(this.roomWidth * size)) / 2;
     int x = xInit;
-    int xCenter = roomWidth/2; //*
+    int xCenter = roomWidth/2;
     
     int yInit = (height-(int)(this.roomHeight * size)) / 2;
     int y = yInit;
-    int yCenter = roomHeight/2; //*
+    int yCenter = roomHeight/2; 
 
-    int radius = min(roomWidth, roomHeight) / 2; //*
+    int radius = min(roomWidth, roomHeight) / 2; 
 
     int fillColor = 255;
 
@@ -405,7 +403,6 @@ class Scene {
 
             tile.setFill(color(fillColor));
 
-            
             //below basically cuts the edges of the grid using pathfinding
             
             if (abs(z - xCenter) + abs(i - yCenter) > radius) {
@@ -428,9 +425,7 @@ class Scene {
             }
 
             x += size;
-
             fillColor -= 1;
-
             
         }
       y += size;
