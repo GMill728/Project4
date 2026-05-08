@@ -8,7 +8,8 @@
  *        File: Project4.pde
  * Description: A dungeon crawler game
  */
-
+import processing.sound.*;
+SoundFile song;
 Scene scene;
 String fileName;
 
@@ -25,6 +26,9 @@ void setup() {
   pixelDensity(1);
   fileName = "data" + File.separator + "save.json";
   File file = new File(fileName);
+
+  song = new SoundFile(this, "dungeonSong.mp3");
+  song.loop();
 
   if (file.exists()) {
     JSONObject data = loadJSONObject(fileName);
