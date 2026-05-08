@@ -415,10 +415,7 @@ class Scene {
             }
 
             x += size;
-            println("x: " + x);
-            println("y: " +  + y);
 
-            println("tileSize: " + size);
             fillColor -= 1;
 
             
