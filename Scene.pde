@@ -376,35 +376,46 @@ class Scene {
     
     float size = min((float)width / (this.roomWidth + 2), (float)height / (this.roomHeight + 2));
     
-    //----------------------------\\
-    // TODO: COMPLETE THIS METHOD \\
-    //----------------------------\\
-
-    //TODO: populate each tile in this 2d array with a bool for isEmpty and then also a world object.
     int numTile = 12;
     int tileSize = height/numTile;
 
-    //* drawTiles(int numTile, float size)
-
     PShape tile = createShape(RECT, 0, 0, size, size);
     
-    int xInit = (width - (int)(this.roomWidth * size)) / 2;
+    int xInit = (width-(int)(this.roomWidth * size)) / 2;
     int x = xInit;
+    int xCenter = roomWidth/2; //*
     
-    int yInit = (height - (int)(this.roomHeight * size)) / 2;
+    int yInit = (height-(int)(this.roomHeight * size)) / 2;
     int y = yInit;
+    int yCenter = roomHeight/2; //*
+
+    int radius = min(roomWidth, roomHeight) / 2; //*
 
     int fillColor = 255;
 
     for (int i=0; i<this.roomHeight; i++){
       for (int z=0; z<this.roomWidth; z++){
-
-            //? room[z][i] = new WorldObject-type();
-            //^ this will spawn a world object at a given tile
-
-            //room[z][i] = new tmpObj();
+            /*
+            room[z][i] = new WorldObject-type();
+            this will spawn a world object at a given tile
+            
+            room[z][i] = new tmpObj(); is an example
+            the above logic should only be used for debugging as reset() populates rooms normallys
+            */
 
             tile.setFill(color(fillColor));
+
+            
+            //below basically cuts the edges of the grid using pathfinding
+            
+            if (abs(z - xCenter) + abs(i - yCenter) > radius) {
+              //this is something I found for pathfinding called manhattan distance on a 
+              //youtube video a while ago
+              //here's a link to the formula I used on this project:  https://www.geeksforgeeks.org/data-science/manhattan-distance/
+              
+              x += size;
+              continue;
+            }
 
             shape(tile, x, y);
 
@@ -422,7 +433,7 @@ class Scene {
 
             
         }
-      y += size; //? should this be size?
+      y += size;
       x = xInit;
       }
   }
