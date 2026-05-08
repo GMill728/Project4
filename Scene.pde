@@ -25,6 +25,7 @@ class Scene {
 
   private int seed; //seed for proc gen
 
+
   /**
    *      Method: private reset()
    *  Parameters: Direction entry - The direction from which
@@ -362,6 +363,7 @@ class Scene {
       this.player.keyReleased();
     }
   }
+
 
   /**
    *      Method: public draw()
