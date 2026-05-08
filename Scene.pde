@@ -23,6 +23,9 @@ class Scene {
   private HashMap<WorldObject, Position> positions;
   private HashMap<Direction, Position> doors;
 
+  private int seed; //seed for proc gen
+
+
   /**
    *      Method: private reset()
    *  Parameters: Direction entry - The direction from which
@@ -31,14 +34,18 @@ class Scene {
    * Description: Resets the room to a random state
    */
    Scene() {
-    this.roomWidth = roomWidth;
-    this.roomHeight = roomHeight;
-    this.room = room;
+    seed = int(random(100000));
+    
+    this.roomWidth = 12;
+    this.roomHeight = 12;
+    this.room = new WorldObject[roomWidth][roomHeight];
     this.entry = entry;
     this.player = player;
-    this.enemies = enemies;
-    this.positions = positions;
-    this.doors = doors;
+    this.enemies = new LinkedList<Actor>();
+    this.positions = new HashMap<WorldObject, Position>();
+    this.doors = new HashMap<Direction, Position>();
+
+    reset(Direction.NORTH);
    }
    Scene (JSONObject file){
     this.roomWidth = roomWidth;
@@ -51,14 +58,62 @@ class Scene {
     this.doors = doors;
    }
 
+
+    /**
+   *      Method: private reset()
+   *  Parameters: Direction entry - The direction from which
+   *                                the player entered the room
+   *      Return: void
+   * Description: Resets the room to a random state
+   */
   private void reset(Direction entry) {
     if (entry == null) {
       return;
     }
 
-    //----------------------------\\
-    // TODO: COMPLETE THIS METHOD \\
-    //----------------------------\\
+    //! clear all things once they exist i.e. thing.clear();
+    room = new WorldObject [roomWidth][roomHeight];
+    
+    randomSeed(seed);
+
+    for (int y = 0; y < roomHeight; y++) {
+        for (int x = 0; x < roomWidth; x++) {
+
+            float r = random(1);
+
+            boolean isDoor = false;
+
+            if ((x == roomWidth / 2 && y == 0)||(x == roomWidth / 2 && y == roomHeight - 1)
+            ||(x == 0 && y == roomHeight / 2)||(x == roomWidth - 1 && y == roomHeight / 2))
+            {
+              isDoor = true;
+            }
+
+            if (isDoor) {
+                room[x][y] = new devDoor();
+                continue;
+            }
+
+            if (r < 0.2) { //room[x][y] = new WorldObject();
+              tmpObj obj = new tmpObj();
+              obj.clr = 1;
+              room[x][y] = obj;
+            } 
+            else if (r < 0.3) { //room[x][y] = new WorldObject();
+              tmpObj obj = new tmpObj();
+              obj.clr = 2;
+              room[x][y] = obj;
+            }
+            else if (r < 0.35) { //room[x][y] = new WorldObject();
+              tmpObj obj = new tmpObj();
+              obj.clr = 3;
+              room[x][y] = obj;
+            }
+            else { room[x][y] = null; }
+        }
+      }
+      
+      //! place player
   }
 
   /**
@@ -309,6 +364,7 @@ class Scene {
     }
   }
 
+
   /**
    *      Method: public draw()
    *  Parameters: void
@@ -317,11 +373,68 @@ class Scene {
    */
 
   public void draw() {
-    // Determine the floor size
+    
     float size = min((float)width / (this.roomWidth + 2), (float)height / (this.roomHeight + 2));
+    
+    int numTile = 12;
+    int tileSize = height/numTile;
 
-    //----------------------------\\
-    // TODO: COMPLETE THIS METHOD \\
-    //----------------------------\\
+    PShape tile = createShape(RECT, 0, 0, size, size);
+    
+    int xInit = (width-(int)(this.roomWidth * size)) / 2;
+    int x = xInit;
+    int xCenter = roomWidth/2; //*
+    
+    int yInit = (height-(int)(this.roomHeight * size)) / 2;
+    int y = yInit;
+    int yCenter = roomHeight/2; //*
+
+    int radius = min(roomWidth, roomHeight) / 2; //*
+
+    int fillColor = 255;
+
+    for (int i=0; i<this.roomHeight; i++){
+      for (int z=0; z<this.roomWidth; z++){
+            /*
+            room[z][i] = new WorldObject-type();
+            this will spawn a world object at a given tile
+            
+            room[z][i] = new tmpObj(); is an example
+            the above logic should only be used for debugging as reset() populates rooms normallys
+            */
+
+            tile.setFill(color(fillColor));
+
+            
+            //below basically cuts the edges of the grid using pathfinding
+            
+            if (abs(z - xCenter) + abs(i - yCenter) > radius) {
+              //this is something I found for pathfinding called manhattan distance on a 
+              //youtube video a while ago
+              //here's a link to the formula I used on this project:  https://www.geeksforgeeks.org/data-science/manhattan-distance/
+              
+              x += size;
+              continue;
+            }
+
+            shape(tile, x, y);
+
+            if (room[z][i] != null) {//if tile not empty then draw contentse
+
+                pushMatrix();
+                translate(x + size/2, y + size/2);
+                room[z][i].draw();
+                popMatrix();
+            }
+
+            x += size;
+
+            fillColor -= 1;
+
+            
+        }
+      y += size;
+      x = xInit;
+      }
   }
 }

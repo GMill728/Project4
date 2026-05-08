@@ -8,7 +8,8 @@
  *        File: Project4.pde
  * Description: A dungeon crawler game
  */
-
+import processing.sound.*;
+SoundFile song;
 Scene scene;
 String fileName;
 
@@ -26,14 +27,22 @@ void setup() {
   fileName = sketchPath("data/save.json");
   File file = new File(fileName);
 
+  try{
+  song = new SoundFile(this, "caveSong.mp3");
+  song.loop();}
+  catch (NullPointerException e){
+    println("song not found... \n terminating program...");
+    exit();
+  }
+
   if (file.exists()) {
     JSONObject data = loadJSONObject(fileName);
     scene = new Scene(data);
   } else {
     scene = new Scene();
-    JSONObject data = scene.serialize();
+    //!JSONObject data = scene.serialize();
     file.getParentFile().mkdirs();
-    saveJSONObject(data, fileName);
+    //!saveJSONObject(data, fileName);
   }
 }
 
@@ -49,10 +58,11 @@ void setup() {
 
 void draw() {
   background(0);
+  scene.draw();
 
   if (scene.tryTurn()) {
     // Save the state of the scene
-    saveJSONObject(scene.serialize(), fileName);
+    //!saveJSONObject(scene.serialize(), fileName);
   }
 
   scene.draw();
