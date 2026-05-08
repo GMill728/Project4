@@ -23,6 +23,8 @@ class Scene {
   private HashMap<WorldObject, Position> positions;
   private HashMap<Direction, Position> doors;
 
+  private int seed; //seed for proc gen
+
   /**
    *      Method: private reset()
    *  Parameters: Direction entry - The direction from which
@@ -31,14 +33,18 @@ class Scene {
    * Description: Resets the room to a random state
    */
    Scene() {
-    this.roomWidth = roomWidth;
-    this.roomHeight = roomHeight;
-    this.room = room;
+    seed = int(random(100000));
+    
+    this.roomWidth = 12;
+    this.roomHeight = 12;
+    this.room = new WorldObject[roomWidth][roomHeight];
     this.entry = entry;
     this.player = player;
-    this.enemies = enemies;
-    this.positions = positions;
-    this.doors = doors;
+    this.enemies = new LinkedList<Actor>();
+    this.positions = new HashMap<WorldObject, Position>();
+    this.doors = new HashMap<Direction, Position>();
+
+    reset(Direction.NORTH);
    }
    Scene (JSONObject file){
     this.roomWidth = roomWidth;
@@ -51,14 +57,62 @@ class Scene {
     this.doors = doors;
    }
 
+
+    /**
+   *      Method: private reset()
+   *  Parameters: Direction entry - The direction from which
+   *                                the player entered the room
+   *      Return: void
+   * Description: Resets the room to a random state
+   */
   private void reset(Direction entry) {
     if (entry == null) {
       return;
     }
 
-    //----------------------------\\
-    // TODO: COMPLETE THIS METHOD \\
-    //----------------------------\\
+    //! clear all things once they exist i.e. thing.clear();
+    room = new WorldObject [roomWidth][roomHeight];
+    
+    randomSeed(seed);
+
+    for (int y = 0; y < roomHeight; y++) {
+        for (int x = 0; x < roomWidth; x++) {
+
+            float r = random(1);
+
+            boolean isDoor = false;
+
+            if ((x == roomWidth / 2 && y == 0)||(x == roomWidth / 2 && y == roomHeight - 1)
+            ||(x == 0 && y == roomHeight / 2)||(x == roomWidth - 1 && y == roomHeight / 2))
+            {
+              isDoor = true;
+            }
+
+            if (isDoor) {
+                room[x][y] = new devDoor();
+                continue;
+            }
+
+            if (r < 0.2) { //room[x][y] = new WorldObject();
+              tmpObj obj = new tmpObj();
+              obj.clr = 1;
+              room[x][y] = obj;
+            } 
+            else if (r < 0.3) { //room[x][y] = new WorldObject();
+              tmpObj obj = new tmpObj();
+              obj.clr = 2;
+              room[x][y] = obj;
+            }
+            else if (r < 0.35) { //room[x][y] = new WorldObject();
+              tmpObj obj = new tmpObj();
+              obj.clr = 3;
+              room[x][y] = obj;
+            }
+            else { room[x][y] = null; }
+        }
+      }
+      
+      //! place player
   }
 
   /**
@@ -317,11 +371,60 @@ class Scene {
    */
 
   public void draw() {
-    // Determine the floor size
+    
     float size = min((float)width / (this.roomWidth + 2), (float)height / (this.roomHeight + 2));
-
+    
     //----------------------------\\
     // TODO: COMPLETE THIS METHOD \\
     //----------------------------\\
+
+    //TODO: populate each tile in this 2d array with a bool for isEmpty and then also a world object.
+    int numTile = 12;
+    int tileSize = height/numTile;
+
+    //* drawTiles(int numTile, float size)
+
+    PShape tile = createShape(RECT, 0, 0, size, size);
+    
+    int xInit = (width - (int)(this.roomWidth * size)) / 2;
+    int x = xInit;
+    
+    int yInit = (height - (int)(this.roomHeight * size)) / 2;
+    int y = yInit;
+
+    int fillColor = 255;
+
+    for (int i=0; i<this.roomHeight; i++){
+      for (int z=0; z<this.roomWidth; z++){
+
+            //? room[z][i] = new WorldObject-type();
+            //^ this will spawn a world object at a given tile
+
+            //room[z][i] = new tmpObj();
+
+            tile.setFill(color(fillColor));
+
+            shape(tile, x, y);
+
+            if (room[z][i] != null) {//if tile not empty then draw contentse
+
+                pushMatrix();
+                translate(x + size/2, y + size/2);
+                room[z][i].draw();
+                popMatrix();
+            }
+
+            x += size;
+            println("x: " + x);
+            println("y: " +  + y);
+
+            println("tileSize: " + size);
+            fillColor -= 1;
+
+            
+        }
+      y += size; //? should this be size?
+      x = xInit;
+      }
   }
 }
