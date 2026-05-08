@@ -65,7 +65,6 @@ void draw() {
   }
 
   scene.draw();
-  drawMusicControls();
 }
 
 /**
@@ -88,12 +87,4 @@ void keyPressed() {
 
 void keyReleased() {
   scene.keyReleased();
-}
-
-
-void drawMusicControls(){
-  fill(255);
-  PShape volumeControls = createShape(RECT,20,20,40, 40);
-  shape(volumeControls);
-  rotate(45);
 }
