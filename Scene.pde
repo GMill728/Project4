@@ -12,7 +12,6 @@
  */
 
 import java.util.LinkedList;
-import processing.sound.*;
 
 class Scene {
   private int roomWidth;
@@ -26,7 +25,6 @@ class Scene {
 
   private int seed; //seed for proc gen
 
-  public SoundFile song;
 
   /**
    *      Method: private reset()
@@ -46,7 +44,6 @@ class Scene {
     this.enemies = new LinkedList<Actor>();
     this.positions = new HashMap<WorldObject, Position>();
     this.doors = new HashMap<Direction, Position>();
-    this.song = new SoundFile(this, "dungeonnSong.mp3");
 
     reset(Direction.NORTH);
    }
@@ -366,6 +363,7 @@ class Scene {
       this.player.keyReleased();
     }
   }
+
 
   /**
    *      Method: public draw()

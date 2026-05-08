@@ -4,10 +4,13 @@ class devDoor extends WorldObject {
         return json; 
     }
 
-    public void draw(){
+    public void draw(){ //draws a simple door
+
+    rectMode(CENTER);
     fill (100,100,0);
     rect(0, 0, 30, 60);
     fill(255,255,0);
-    circle(25,30,5);
+    circle(10,5,5);
+    rectMode(LEFT);
     }
 }

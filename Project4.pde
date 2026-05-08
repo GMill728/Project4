@@ -27,8 +27,13 @@ void setup() {
   fileName = "data" + File.separator + "save.json";
   File file = new File(fileName);
 
-  song = new SoundFile(this, "dungeonSong.mp3");
-  song.loop();
+  try{
+  song = new SoundFile(this, "caveSong.mp3");
+  song.loop();}
+  catch (NullPointerException e){
+    println("song not found... \n terminating program...");
+    exit();
+  }
 
   if (file.exists()) {
     JSONObject data = loadJSONObject(fileName);
@@ -60,6 +65,7 @@ void draw() {
   }
 
   scene.draw();
+  drawMusicControls();
 }
 
 /**
@@ -82,4 +88,12 @@ void keyPressed() {
 
 void keyReleased() {
   scene.keyReleased();
+}
+
+
+void drawMusicControls(){
+  fill(255);
+  PShape volumeControls = createShape(RECT,20,20,40, 40);
+  shape(volumeControls);
+  rotate(45);
 }
