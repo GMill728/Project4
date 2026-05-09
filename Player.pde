@@ -143,11 +143,48 @@ class Player extends Actor {
     }
   }
 
-
-  public void draw(){
+/** OLD DRAW METHOD FOR PLAYER
+public void draw(){
     rect(0,0,1,1);
     pushMatrix();
     fill(0,255,0);
     popMatrix();
   }
+ */
+
+ /**NEW DRAW METHOD FOR PLAYER */
+ public void draw() {
+  pushStyle();
+
+  //Player body
+  fill(0, 0, 255);
+  rectMode(CENTER);
+  rect(0, 0, 20, 20);
+
+  //Direction indicator
+  fill(255);
+
+  switch(this.facing) {
+
+    case NORTH:
+      triangle(0, -12, -4, -4, 4, -4);
+      break;
+
+    case SOUTH:
+      triangle(0, -12, -4, 4, 4, 4);
+      break;
+
+    case EAST:
+      triangle(0, -12, 4, -4, 4, 4);
+      break;
+
+    case WEST:
+      triangle(0, -12, -4, -4, -4, 4);
+      break;
+  }
+
+  popStyle();
+  
+  super.draw();
+ }
 }
