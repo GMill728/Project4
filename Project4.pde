@@ -8,10 +8,16 @@
  *        File: Project4.pde
  * Description: A dungeon crawler game
  */
+import java.util.LinkedList;
+import java.util.HashMap;
 import processing.sound.*;
 SoundFile song;
 Scene scene;
 String fileName;
+PShape E;
+PShape goodChestSVG;
+PShape evilChestSVG;
+PShape obstacleSVG;
 
 /**
  *      Method: setup()
@@ -26,6 +32,10 @@ void setup() {
   pixelDensity(1);
   fileName = sketchPath("data/save.json");
   File file = new File(fileName);
+  E = loadShape("Enemy.svg");
+  goodChestSVG = loadShape("Chest.svg");
+  evilChestSVG = loadShape("EvilChest.svg");
+  obstacleSVG = loadShape("Rock.svg");
 
   try{
   song = new SoundFile(this, "caveSong.mp3");
@@ -37,9 +47,9 @@ void setup() {
 
   if (file.exists()) {
     JSONObject data = loadJSONObject(fileName);
-    scene = new Scene(data);
+    scene = new Scene(data, E);
   } else {
-    scene = new Scene();
+    scene = new Scene(E);
     //!JSONObject data = scene.serialize();
     file.getParentFile().mkdirs();
     //!saveJSONObject(data, fileName);

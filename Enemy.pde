@@ -1,8 +1,10 @@
 class Enemy extends Actor {
+  PShape e;
 
-  public Enemy(Direction direction)
+  public Enemy(Direction direction, PShape enemySVG)
     {
       super(100, 10, direction);
+      this.e = enemySVG;
     }
     
     public Action getAction(){
@@ -64,13 +66,33 @@ class Enemy extends Actor {
     
     public void draw()
     {
+      pushMatrix();
+      switch(this.facing)
+      {
+        case NORTH:
+          rotate(HALF_PI);
+          break;
+        case SOUTH:
+          rotate(-HALF_PI);
+          break;
+        case EAST:
+          rotate(PI);
+          break;
+        case WEST:
+          rotate(0);
+          break;  
+      }
       //call actors/players draw for health bar
+      shapeMode(CENTER);
+      shape(e, 0, 0, 40, 40);
+      popMatrix();
       
-      pushStyle();
+      shapeMode(CORNER);
+      /*pushStyle();
       fill(255, 0 , 0);
       ellipse(0, 0, 20, 20);
       popStyle();
-       
+       */
     }
 
 }

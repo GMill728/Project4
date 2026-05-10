@@ -10,10 +10,6 @@
  *              and all objects within those rooms,
  *              including the player and enemies
  */
-
-import java.util.LinkedList;
-import java.util.HashMap;
-
 class Scene {
   private int roomWidth;
   private int roomHeight;
@@ -23,6 +19,7 @@ class Scene {
   private LinkedList<Actor> enemies;
   private HashMap<WorldObject, Position> positions;
   private HashMap<Direction, Position> doors;
+  private PShape enemyShape;
 
   private int seed; //seed for proc gen
   private boolean firstStage = true;
@@ -35,7 +32,7 @@ class Scene {
    *      Return: void
    * Description: Resets the room to a random state
    */
-   Scene() {
+   Scene(PShape enemyShape) {
     seed = int(random(100000));
     
     this.roomWidth = 12;
@@ -46,10 +43,11 @@ class Scene {
     this.enemies = new LinkedList<Actor>();
     this.positions = new HashMap<WorldObject, Position>();
     this.doors = new HashMap<Direction, Position>();
+    this.enemyShape = enemyShape;
 
     reset(Direction.NORTH);
    }
-   Scene (JSONObject file){
+   Scene (JSONObject file, PShape enemyShape){
     this.roomWidth = roomWidth;
     this.roomHeight = roomHeight;
     this.room = room;
@@ -58,6 +56,7 @@ class Scene {
     this.enemies = enemies;
     this.positions = positions;
     this.doors = doors;
+    this.enemyShape = enemyShape;
    }
 
 
@@ -122,7 +121,7 @@ class Scene {
               // Enemy enemy = new Enemy(Direction.SOUTH);//randomize direction
               // room[x][y] = enemy;
 
-              Enemy enemy = new Enemy(Direction.SOUTH);
+              Enemy enemy = new Enemy(Direction.SOUTH, enemyShape);
               room[x][y] = enemy;
               Position pos = new Position(x, y, this);
 
