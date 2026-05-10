@@ -32,16 +32,17 @@ void setup() {
   pixelDensity(1);
   fileName = sketchPath("data/save.json");
   File file = new File(fileName);
+
+   try{
   E = loadShape("Enemy.svg");
   goodChestSVG = loadShape("Chest.svg");
   evilChestSVG = loadShape("EvilChest.svg");
   obstacleSVG = loadShape("Rock.svg");
 
-  try{
   song = new SoundFile(this, "caveSong.mp3");
   song.loop();}
   catch (NullPointerException e){
-    println("song not found... \n terminating program...");
+    println("one or more files not found... \n terminating program...");
     exit();
   }
 
