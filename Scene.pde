@@ -77,13 +77,55 @@ class Scene {
     positions.clear();
     doors.clear();
     enemies.clear();
+
+    int PSX = roomWidth/2; //Initial player spawn X
+    int PSY = roomHeight/2; //Initial player spawn Y
     
-    randomSeed(seed);
+    //randomSeed(seed); //seeds all random numbers goin forwards
+    //! ^ uncomment after testing
+
+    if (firstStage){
+      room[PSX][PSY] = player;
+      Position pos = new Position(PSX, PSY, this);
+      positions.put(player, pos);
+    }
+    else {
+      int spawnX = PSX;
+      int spawnY = PSY;
+
+      // Spawn just inside the opposite door
+      if (entry == Direction.NORTH) {
+        spawnX = roomWidth / 2;
+        spawnY = 1;
+      }
+      else if (entry == Direction.SOUTH) {
+        spawnX = roomWidth / 2;
+        spawnY = roomHeight - 2;
+      }
+      else if (entry == Direction.WEST) {
+        spawnX = 1;
+        spawnY = roomHeight / 2;
+      }
+      else if (entry == Direction.EAST) {
+        spawnX = roomWidth - 2;
+        spawnY = roomHeight / 2;
+      }
+
+      room[spawnX][spawnY] = player;
+
+      Position pos = new Position(spawnX, spawnY, this);
+      positions.put(player, pos);
+    }
+    
+    firstStage = false;
 
     for (int y = 0; y < roomHeight; y++) {
         for (int x = 0; x < roomWidth; x++) {
 
+            if (room[x][y] != null){ continue; }
             float r = random(1);
+            
+            //!BUG I believe the player is replacing the door object in tiles... I don't know how to fix this
 
             boolean isDoor = false;
 
@@ -94,9 +136,6 @@ class Scene {
             }
 
             if (isDoor) {
-                // room[x][y] = new devDoor();
-                // continue;
-
                 room[x][y] = new devDoor();
                 Direction dir = null;
 
@@ -109,14 +148,7 @@ class Scene {
 
                 continue;
             }
-            if (x == roomWidth/2 && y == roomHeight/2 && firstStage){
-              // room[x][y] = player;
-
-              room[x][y] = player;
-              Position pos = new Position(x, y, this);
-              positions.put(player, pos);
-              firstStage = false;
-            }
+            //TODO else if not first stage, get posisiton, invert it , reset spawn player there.
             else if (r < 0.2) { //!room[x][y] = new WorldObject();
               // Enemy enemy = new Enemy(Direction.SOUTH);//randomize direction
               // room[x][y] = enemy;
@@ -405,8 +437,6 @@ class Scene {
   public void draw() {
     
     float size = min((float)width / (this.roomWidth + 2), (float)height / (this.roomHeight + 2));
-    
-    int numTile = 19;
 
     PShape tile = createShape(RECT, 0, 0, size, size);
     
