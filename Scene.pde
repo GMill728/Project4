@@ -22,6 +22,7 @@ class Scene {
   private LinkedList<Actor> enemies;
   private HashMap<WorldObject, Position> positions;
   private HashMap<Direction, Position> doors;
+  private PShape enemyShape;
 
   private int seed; //seed for proc gen
 
@@ -33,7 +34,7 @@ class Scene {
    *      Return: void
    * Description: Resets the room to a random state
    */
-   Scene() {
+   Scene(PShape enemyShape) {
     seed = int(random(100000));
     
     this.roomWidth = 12;
@@ -44,10 +45,11 @@ class Scene {
     this.enemies = new LinkedList<Actor>();
     this.positions = new HashMap<WorldObject, Position>();
     this.doors = new HashMap<Direction, Position>();
+    this.enemyShape = enemyShape;
 
     reset(Direction.NORTH);
    }
-   Scene (JSONObject file){
+   Scene (JSONObject file, PShape enemyShape){
     this.roomWidth = roomWidth;
     this.roomHeight = roomHeight;
     this.room = room;
@@ -56,6 +58,7 @@ class Scene {
     this.enemies = enemies;
     this.positions = positions;
     this.doors = doors;
+    this.enemyShape = enemyShape;
    }
 
 
@@ -95,7 +98,7 @@ class Scene {
             }
 
             if (r < 0.2) { //room[x][y] = new WorldObject();
-              Enemy enemy = new Enemy(Direction.SOUTH);//randomize direction
+              Enemy enemy = new Enemy(Direction.SOUTH, enemyShape);//randomize direction
               room[x][y] = enemy;
             } 
             else if (r < 0.3) { //room[x][y] = new WorldObject();
