@@ -48,9 +48,9 @@ void setup() {
 
   if (file.exists()) {
     JSONObject data = loadJSONObject(fileName);
-    scene = new Scene(data, E);
+    scene = new Scene(data, E, goodChestSVG, evilChestSVG, obstacleSVG);
   } else {
-    scene = new Scene(E);
+    scene = new Scene(E, goodChestSVG, evilChestSVG, obstacleSVG);
     JSONObject data = scene.serialize();
     file.getParentFile().mkdirs();
     saveJSONObject(data, fileName);

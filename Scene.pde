@@ -20,6 +20,9 @@ class Scene {
   private HashMap<WorldObject, Position> positions;
   private HashMap<Direction, Position> doors;
   private PShape enemyShape;
+  private PShape goodChest;
+  private PShape evilChest;
+  private PShape obstacle;
 
   private int seed; //seed for proc gen
   private boolean firstStage = true;
@@ -32,7 +35,7 @@ class Scene {
    *      Return: void
    * Description: Resets the room to a random state
    */
-   Scene(PShape enemyShape) {
+   Scene(PShape enemyShape, PShape goodChest, PShape evilChest, PShape obstacle) {
     seed = int(random(100000));
     
     this.roomWidth = 12;
@@ -44,10 +47,13 @@ class Scene {
     this.positions = new HashMap<WorldObject, Position>();
     this.doors = new HashMap<Direction, Position>();
     this.enemyShape = enemyShape;
+    this.goodChest = goodChest;
+    this.evilChest = evilChest;
+    this.obstacle = obstacle;
 
     reset(Direction.NORTH);
    }
-   Scene(JSONObject file, PShape enemyShape) {
+   Scene(JSONObject file, PShape enemyShape, PShape goodChest, PShape evilChest, PShape obstacle) {
 
     this.roomWidth = file.getInt("roomWidth");
     this.roomHeight = file.getInt("roomHeight");
@@ -55,6 +61,9 @@ class Scene {
     this.firstStage = file.getBoolean("firstStage");
 
     this.enemyShape = enemyShape;
+    this.goodChest = goodChest;
+    this.evilChest = evilChest;
+    this.obstacle = obstacle;
 
     this.room = new WorldObject[roomWidth][roomHeight];
     this.enemies = new LinkedList<Actor>();
@@ -188,14 +197,12 @@ class Scene {
               enemies.add(enemy);
             } 
             else if (r < 0.3) { 
-              tmpObj obj = new tmpObj();
-              obj.clr = 2;
-              room[x][y] = obj;
+              Chest chest = new Chest(goodChest, evilChest);
+              room[x][y] = chest;
             }
             else if (r < 0.35) { 
-              tmpObj obj = new tmpObj();
-              obj.clr = 3;
-              room[x][y] = obj;
+              Obstacle obstacle = new Obstacle(this.obstacle);
+              room[x][y] = obstacle;
             }
             else { room[x][y] = null; }
         }
