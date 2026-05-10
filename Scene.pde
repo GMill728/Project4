@@ -40,8 +40,8 @@ class Scene {
     this.roomWidth = 12;
     this.roomHeight = 12;
     this.room = new WorldObject[roomWidth][roomHeight];
-    this.entry = entry;
-    this.player = player;
+    this.entry = Direction.NORTH;
+    this.player = new Player(Direction.NORTH);
     this.enemies = new LinkedList<Actor>();
     this.positions = new HashMap<WorldObject, Position>();
     this.doors = new HashMap<Direction, Position>();
