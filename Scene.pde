@@ -24,6 +24,7 @@ class Scene {
   private HashMap<Direction, Position> doors;
 
   private int seed; //seed for proc gen
+  private boolean firstStage = true;
 
 
   /**
@@ -130,8 +131,6 @@ class Scene {
               obj.clr = 3;
               room[x][y] = obj;
             }
-<<<<<<< Updated upstream
-=======
             else if (x == roomWidth/2 && y == roomHeight/2 && firstStage){
               // room[x][y] = player;
 
@@ -139,8 +138,7 @@ class Scene {
               Position pos = new Position(x, y, this);
               positions.put(player, pos);
             }
->>>>>>> Stashed changes
-            else { room[x][y] = null; }
+            //else { room[x][y] = null; }
         }
       }
       
