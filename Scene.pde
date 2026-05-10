@@ -234,7 +234,6 @@ class Scene {
 
         enemyArray.append(enemyData);
     }
-
     data.setJSONArray("enemies", enemyArray);
 
     return data;
