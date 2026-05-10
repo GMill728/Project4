@@ -164,7 +164,7 @@ public void draw(){
   //Direction indicator
   fill(255);
 
-  PShape tri = createShape(TRIANGLE, 0, -12, -4, -4, 4, -4);
+  PShape tri = createShape(TRIANGLE, 0, -12, -6, -4, 6, -4);
 
   switch(this.facing) {
 

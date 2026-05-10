@@ -110,8 +110,15 @@ class Scene {
 
                 continue;
             }
+            if (x == roomWidth/2 && y == roomHeight/2 && firstStage){
+              // room[x][y] = player;
 
-            if (r < 0.2) { //!room[x][y] = new WorldObject();
+              room[x][y] = player;
+              Position pos = new Position(x, y, this);
+              positions.put(player, pos);
+              firstStage = false;
+            }
+            else if (r < 0.2) { //!room[x][y] = new WorldObject();
               // Enemy enemy = new Enemy(Direction.SOUTH);//randomize direction
               // room[x][y] = enemy;
 
@@ -131,14 +138,6 @@ class Scene {
               tmpObj obj = new tmpObj();
               obj.clr = 3;
               room[x][y] = obj;
-            }
-            else if (x == roomWidth/2 && y == roomHeight/2 && firstStage){
-              // room[x][y] = player;
-
-              room[x][y] = player;
-              Position pos = new Position(x, y, this);
-              positions.put(player, pos);
-              firstStage = false;
             }
             else { room[x][y] = null; }
         }
