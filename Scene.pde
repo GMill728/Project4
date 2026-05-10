@@ -47,17 +47,22 @@ class Scene {
 
     reset(Direction.NORTH);
    }
-   Scene (JSONObject file, PShape enemyShape){
-    this.roomWidth = roomWidth;
-    this.roomHeight = roomHeight;
-    this.room = room;
-    this.entry = entry;
-    this.player = player;
-    this.enemies = enemies;
-    this.positions = positions;
-    this.doors = doors;
+   Scene(JSONObject file, PShape enemyShape) {
+
+    this.roomWidth = file.getInt("roomWidth");
+    this.roomHeight = file.getInt("roomHeight");
+    this.seed = file.getInt("seed");
+    this.firstStage = file.getBoolean("firstStage");
+
     this.enemyShape = enemyShape;
-   }
+
+    this.room = new WorldObject[roomWidth][roomHeight];
+    this.enemies = new LinkedList<Actor>();
+    this.positions = new HashMap<WorldObject, Position>();
+    this.doors = new HashMap<Direction, Position>();
+
+    reset(Direction.NORTH);
+  }
 
 
     /**
@@ -176,6 +181,17 @@ class Scene {
       this.entry = entry;
       //! place player
       updateActions(player);
+  }
+
+  JSONObject serialize() {
+    JSONObject data = new JSONObject();
+
+    data.setInt("roomWidth", roomWidth);
+    data.setInt("roomHeight", roomHeight);
+    data.setInt("seed", seed);
+    data.setBoolean("firstStage", firstStage);
+
+    return data;
   }
 
   /**

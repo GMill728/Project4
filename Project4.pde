@@ -51,9 +51,9 @@ void setup() {
     scene = new Scene(data, E);
   } else {
     scene = new Scene(E);
-    //!JSONObject data = scene.serialize();
+    JSONObject data = scene.serialize();
     file.getParentFile().mkdirs();
-    //!saveJSONObject(data, fileName);
+    saveJSONObject(data, fileName);
   }
 }
 
@@ -73,7 +73,7 @@ void draw() {
 
   if (scene.tryTurn()) {
     // Save the state of the scene
-    //!saveJSONObject(scene.serialize(), fileName);
+    saveJSONObject(scene.serialize(), fileName);
   }
 
   scene.draw();
