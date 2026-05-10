@@ -47,17 +47,48 @@ class Scene {
 
     reset(Direction.NORTH);
    }
-   Scene (JSONObject file, PShape enemyShape){
-    this.roomWidth = roomWidth;
-    this.roomHeight = roomHeight;
-    this.room = room;
-    this.entry = entry;
-    this.player = player;
-    this.enemies = enemies;
-    this.positions = positions;
-    this.doors = doors;
+   Scene(JSONObject file, PShape enemyShape) {
+
+    this.roomWidth = file.getInt("roomWidth");
+    this.roomHeight = file.getInt("roomHeight");
+    this.seed = file.getInt("seed");
+    this.firstStage = file.getBoolean("firstStage");
+
     this.enemyShape = enemyShape;
-   }
+
+    this.room = new WorldObject[roomWidth][roomHeight];
+    this.enemies = new LinkedList<Actor>();
+    this.positions = new HashMap<WorldObject, Position>();
+    this.doors = new HashMap<Direction, Position>();
+
+    //load player
+    JSONObject playerData = file.getJSONObject("player");
+    this.player = new Player(playerData);
+
+    reset(Direction.NORTH);
+
+    int playerX = playerData.getInt("x");
+    int playerY = playerData.getInt("y");
+    room[playerX][playerY] = player;
+
+    positions.put(player, new Position(playerX, playerY, this));
+
+    //load enemies
+    JSONArray enemyArray = file.getJSONArray("enemies");
+
+    for (int i = 0; i < enemyArray.size(); i++) {
+        JSONObject enemyData = enemyArray.getJSONObject(i);
+        Enemy enemy = new Enemy(Direction.valueOf(enemyData.getString("facing")), enemyShape);
+
+        int enemyX = enemyData.getInt("x");
+        int enemyY = enemyData.getInt("y");
+
+        room[enemyX][enemyY] = enemy;
+
+        positions.put(enemy, new Position(enemyX, enemyY, this));
+        enemies.add(enemy);
+    }
+  }
 
 
     /**
@@ -81,7 +112,7 @@ class Scene {
     int PSX = roomWidth/2; //Initial player spawn X
     int PSY = roomHeight/2; //Initial player spawn Y
     
-    //randomSeed(seed); //seeds all random numbers goin forwards
+    randomSeed(seed); //seeds all random numbers goin forwards
     //! ^ uncomment after testing
 
     if (firstStage){
@@ -93,7 +124,6 @@ class Scene {
       int spawnX = PSX;
       int spawnY = PSY;
 
-      // Spawn just inside the opposite door
       if (entry == Direction.NORTH) {
         spawnX = roomWidth / 2;
         spawnY = 1;
@@ -148,11 +178,8 @@ class Scene {
 
                 continue;
             }
-            //TODO else if not first stage, get posisiton, invert it , reset spawn player there.
-            else if (r < 0.2) { //!room[x][y] = new WorldObject();
-              // Enemy enemy = new Enemy(Direction.SOUTH);//randomize direction
-              // room[x][y] = enemy;
-
+          
+            else if (r < 0.2) {
               Enemy enemy = new Enemy(Direction.SOUTH, enemyShape);
               room[x][y] = enemy;
               Position pos = new Position(x, y, this);
@@ -160,12 +187,12 @@ class Scene {
               positions.put(enemy, pos);
               enemies.add(enemy);
             } 
-            else if (r < 0.3) { //!room[x][y] = new WorldObject();
+            else if (r < 0.3) { 
               tmpObj obj = new tmpObj();
               obj.clr = 2;
               room[x][y] = obj;
             }
-            else if (r < 0.35) { //!room[x][y] = new WorldObject();
+            else if (r < 0.35) { 
               tmpObj obj = new tmpObj();
               obj.clr = 3;
               room[x][y] = obj;
@@ -174,8 +201,42 @@ class Scene {
         }
       }
       this.entry = entry;
-      //! place player
+      
       updateActions(player);
+  }
+
+  JSONObject serialize() {
+    JSONObject data = new JSONObject();
+
+    data.setInt("roomWidth", roomWidth);
+    data.setInt("roomHeight", roomHeight);
+    data.setInt("seed", seed);
+    data.setBoolean("firstStage", firstStage);
+
+    //seperate section for player info
+    JSONObject playerData = player.serialize();
+    Position playerPos = positions.get(player);
+
+    playerData.setInt("x", playerPos.getX());
+    playerData.setInt("y", playerPos.getY());
+
+    data.setJSONObject("player", playerData);
+
+    //and another for enemies
+    JSONArray enemyArray = new JSONArray();
+    for (Actor enemy : enemies) {
+        JSONObject enemyData = enemy.serialize();
+
+        Position pos = positions.get(enemy);
+
+        enemyData.setInt("x", pos.getX());
+        enemyData.setInt("y", pos.getY());
+
+        enemyArray.append(enemyData);
+    }
+    data.setJSONArray("enemies", enemyArray);
+
+    return data;
   }
 
   /**

@@ -143,15 +143,6 @@ class Player extends Actor {
     }
   }
 
-/** OLD DRAW METHOD FOR PLAYER
-public void draw(){
-    rect(0,0,1,1);
-    pushMatrix();
-    fill(0,255,0);
-    popMatrix();
-  }
- */
-
  /**NEW DRAW METHOD FOR PLAYER */
  public void draw() {
   pushStyle();
