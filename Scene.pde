@@ -73,6 +73,9 @@ class Scene {
 
     //! clear all things once they exist i.e. thing.clear();
     room = new WorldObject [roomWidth][roomHeight];
+    positions.clear();
+    doors.clear();
+    enemies.clear();
     
     randomSeed(seed);
 
@@ -90,29 +93,59 @@ class Scene {
             }
 
             if (isDoor) {
+                // room[x][y] = new devDoor();
+                // continue;
+
                 room[x][y] = new devDoor();
+                Direction dir = null;
+
+                if (y == 0) dir = Direction.NORTH;
+                else if (y == roomHeight - 1) dir = Direction.SOUTH;
+                else if (x == 0) dir = Direction.WEST;
+                else if (x == roomWidth - 1) dir = Direction.EAST;
+
+                doors.put(dir, new Position(x, y, this));
+
                 continue;
             }
 
-            if (r < 0.2) { //room[x][y] = new WorldObject();
-              Enemy enemy = new Enemy(Direction.SOUTH);//randomize direction
+            if (r < 0.2) { //!room[x][y] = new WorldObject();
+              // Enemy enemy = new Enemy(Direction.SOUTH);//randomize direction
+              // room[x][y] = enemy;
+
+              Enemy enemy = new Enemy(Direction.SOUTH);
               room[x][y] = enemy;
+              Position pos = new Position(x, y, this);
+
+              positions.put(enemy, pos);
+              enemies.add(enemy);
             } 
-            else if (r < 0.3) { //room[x][y] = new WorldObject();
+            else if (r < 0.3) { //!room[x][y] = new WorldObject();
               tmpObj obj = new tmpObj();
               obj.clr = 2;
               room[x][y] = obj;
             }
-            else if (r < 0.35) { //room[x][y] = new WorldObject();
+            else if (r < 0.35) { //!room[x][y] = new WorldObject();
               tmpObj obj = new tmpObj();
               obj.clr = 3;
               room[x][y] = obj;
             }
+<<<<<<< Updated upstream
+=======
+            else if (x == roomWidth/2 && y == roomHeight/2 && firstStage){
+              // room[x][y] = player;
+
+              room[x][y] = player;
+              Position pos = new Position(x, y, this);
+              positions.put(player, pos);
+            }
+>>>>>>> Stashed changes
             else { room[x][y] = null; }
         }
       }
       
       //! place player
+      updateActions(player);
   }
 
   /**
