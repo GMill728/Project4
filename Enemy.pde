@@ -7,6 +7,12 @@ class Enemy extends Actor {
       this.e = enemySVG;
     }
     
+    public JSONObject serialize() {
+    JSONObject object = super.serialize();
+    object.setString("className", "Enemy");
+    return object;
+    }
+    
     public Action getAction(){
     
     // Convert key to action
@@ -88,11 +94,6 @@ class Enemy extends Actor {
       popMatrix();
       
       shapeMode(CORNER);
-      /*pushStyle();
-      fill(255, 0 , 0);
-      ellipse(0, 0, 20, 20);
-      popStyle();
-       */
     }
 
 }
