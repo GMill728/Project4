@@ -1,4 +1,8 @@
-class devDoor extends WorldObject {
+class devDoor extends Interactable {
+    public boolean interact(Player player) {
+    return true;
+}
+
     public JSONObject serialize(){
         JSONObject json = new JSONObject();
         return json; 
