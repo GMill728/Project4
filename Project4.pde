@@ -8,6 +8,8 @@
  *        File: Project4.pde
  * Description: A dungeon crawler game
  */
+import java.util.LinkedList;
+import java.util.HashMap;
 import processing.sound.*;
 SoundFile song;
 Scene scene;

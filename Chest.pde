@@ -14,6 +14,11 @@ class Chest extends Interactable {
     this.badC = evilChest;
     
   }
+
+  public JSONObject serialize(){
+        JSONObject json = new JSONObject();
+        return json; 
+    }
   
   public boolean interact(Player player)
   {

@@ -20,4 +20,5 @@ class Obstacle extends WorldObject{
       popMatrix();
       
       shapeMode(CORNER);
+  }
 }

@@ -10,9 +10,6 @@
  *              and all objects within those rooms,
  *              including the player and enemies
  */
-
-import java.util.LinkedList;
-
 class Scene {
   private int roomWidth;
   private int roomHeight;
