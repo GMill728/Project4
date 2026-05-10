@@ -18,6 +18,7 @@ PShape E;
 PShape goodChestSVG;
 PShape evilChestSVG;
 PShape obstacleSVG;
+PShape playerSVG;
 
 /**
  *      Method: setup()
@@ -38,6 +39,7 @@ void setup() {
   goodChestSVG = loadShape("Chest.svg");
   evilChestSVG = loadShape("EvilChest.svg");
   obstacleSVG = loadShape("Rock.svg");
+  playerSVG = loadShape("Player.svg");
 
   song = new SoundFile(this, "caveSong.mp3");
   song.loop();}
@@ -48,9 +50,9 @@ void setup() {
 
   if (file.exists()) {
     JSONObject data = loadJSONObject(fileName);
-    scene = new Scene(data, E, goodChestSVG, evilChestSVG, obstacleSVG);
+    scene = new Scene(data, E, goodChestSVG, evilChestSVG, obstacleSVG, playerSVG);
   } else {
-    scene = new Scene(E, goodChestSVG, evilChestSVG, obstacleSVG);
+    scene = new Scene(E, goodChestSVG, evilChestSVG, obstacleSVG, playerSVG);
     JSONObject data = scene.serialize();
     file.getParentFile().mkdirs();
     saveJSONObject(data, fileName);

@@ -47,18 +47,24 @@ class Enemy extends Actor {
       }
     
     
-    Action[] moves = {
+    Action[] actions = {
       Action.MOVE_NORTH,
       Action.MOVE_SOUTH,
       Action.MOVE_EAST,
-      Action.MOVE_WEST
+      Action.MOVE_WEST,
+      Action.ATTACK_NORTH,
+      Action.ATTACK_EAST,
+      Action.ATTACK_WEST,
+      Action.ATTACK_SOUTH
+
+
       
     };
   
-    for(int i = 0; i < moves.length; i++)
+    for(int i = 0; i < actions.length; i++)
     {
-      int index = int(random(moves.length));
-      Action action = moves[index];
+      int index = int(random(actions.length));
+      Action action = actions[index];
       
       if(this.getActionValidity(action))
       {
@@ -76,21 +82,24 @@ class Enemy extends Actor {
       switch(this.facing)
       {
         case NORTH:
-          rotate(HALF_PI);
+          scale(1, 1);
           break;
         case SOUTH:
-          rotate(-HALF_PI);
+          scale(1, 1);
           break;
         case EAST:
-          rotate(PI);
+          rotate(0);
+          scale(-1, 1);
           break;
         case WEST:
           rotate(0);
+          scale(1, 1);
           break;  
       }
       //call actors/players draw for health bar
       shapeMode(CENTER);
       shape(e, 0, 0, 40, 40);
+      drawEnemyHealthBar();
       popMatrix();
       
       shapeMode(CORNER);

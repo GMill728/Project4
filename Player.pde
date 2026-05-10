@@ -12,6 +12,7 @@
 class Player extends Actor {
   private char nextKey;
   private HashMap<Character, Boolean> debounce;
+  PShape P;
 
   /**
    * Constructor: public Player()
@@ -19,10 +20,11 @@ class Player extends Actor {
    * Description: Constructs a player in a new room
    */
 
-  public Player(Direction direction) {
+  public Player(Direction direction, PShape playerSVG) {
     super(100, 10, direction);
     this.nextKey = '\0';
     this.debounce = new HashMap<Character, Boolean>();
+    this.P = playerSVG;
   }
 
   /**
@@ -31,8 +33,9 @@ class Player extends Actor {
    * Description: Constructs a player from JSON save data
    */
 
-  public Player(JSONObject object) {
+  public Player(JSONObject object, PShape playerSVG) {
     super(object);
+    this.P = playerSVG;
     this.nextKey = '\0';
     this.debounce = new HashMap<Character, Boolean>();
   }
@@ -145,7 +148,7 @@ class Player extends Actor {
 
  /**NEW DRAW METHOD FOR PLAYER */
  public void draw() {
-  pushStyle();
+  /*pushStyle();
 
   //Player body
   fill(0, 0, 255);
@@ -156,7 +159,32 @@ class Player extends Actor {
   fill(255);
 
   PShape tri = createShape(TRIANGLE, 0, -12, -6, -4, 6, -4);
-
+*/
+pushMatrix();
+      switch(this.facing)
+      {
+        case NORTH:
+          scale(1, 1);
+          break;
+        case SOUTH:
+          scale(1, 1);
+          break;
+        case EAST:
+          rotate(0);
+          scale(-1, 1);
+          break;
+        case WEST:
+          rotate(0);
+          scale(1, 1);
+          break;  
+      }
+      shapeMode(CENTER);
+      shape(P, -10, -5, 40, 40);
+      popMatrix();
+      
+      drawPlayerHealthBar();
+      shapeMode(CORNER);
+      /*
   switch(this.facing) {
 
     case NORTH:
@@ -186,6 +214,7 @@ class Player extends Actor {
   }
 
   popStyle();
+  */
   
   super.draw();
  }

@@ -23,6 +23,7 @@ class Scene {
   private PShape goodChest;
   private PShape evilChest;
   private PShape obstacle;
+  private PShape playerShape;
 
   private int seed; //seed for proc gen
   private boolean firstStage = true;
@@ -35,14 +36,14 @@ class Scene {
    *      Return: void
    * Description: Resets the room to a random state
    */
-   Scene(PShape enemyShape, PShape goodChest, PShape evilChest, PShape obstacle) {
+   Scene(PShape enemyShape, PShape goodChest, PShape evilChest, PShape obstacle, PShape playerShape) {
     seed = int(random(100000));
     
     this.roomWidth = 12;
     this.roomHeight = 12;
     this.room = new WorldObject[roomWidth][roomHeight];
     this.entry = Direction.NORTH;
-    this.player = new Player(Direction.NORTH);
+    this.player = new Player(Direction.NORTH, playerShape);
     this.enemies = new LinkedList<Actor>();
     this.positions = new HashMap<WorldObject, Position>();
     this.doors = new HashMap<Direction, Position>();
@@ -50,10 +51,11 @@ class Scene {
     this.goodChest = goodChest;
     this.evilChest = evilChest;
     this.obstacle = obstacle;
+    this.playerShape = playerShape;
 
     reset(Direction.NORTH);
    }
-   Scene(JSONObject file, PShape enemyShape, PShape goodChest, PShape evilChest, PShape obstacle) {
+   Scene(JSONObject file, PShape enemyShape, PShape goodChest, PShape evilChest, PShape obstacle, PShape playerShape) {
 
     this.roomWidth = file.getInt("roomWidth");
     this.roomHeight = file.getInt("roomHeight");
@@ -72,7 +74,7 @@ class Scene {
 
     //load player
     JSONObject playerData = file.getJSONObject("player");
-    this.player = new Player(playerData);
+    this.player = new Player(playerData, playerShape);
 
     reset(Direction.NORTH);
 
@@ -274,7 +276,7 @@ class Scene {
     if (this.player == null || this.player.getHealth() == 0) {
       Direction[] directions = Direction.values();
       Direction direction = directions[int(random(directions.length))];
-      this.player = new Player(direction);
+      this.player = new Player(direction, playerShape);
       this.reset(direction);
     }
 
@@ -313,7 +315,7 @@ class Scene {
         if (player.getHealth() == 0) {
           Direction[] directions = Direction.values();
           Direction direction = directions[int(random(directions.length))];
-          this.player = new Player(direction);
+          this.player = new Player(direction, playerShape);
           this.reset(direction);
           return true;
         }
