@@ -164,22 +164,33 @@ public void draw(){
   //Direction indicator
   fill(255);
 
+  PShape tri = createShape(TRIANGLE, 0, -12, -4, -4, 4, -4);
+
   switch(this.facing) {
 
     case NORTH:
-      triangle(0, -12, -4, -4, 4, -4);
+      shape(tri);
       break;
 
     case SOUTH:
-      triangle(0, -12, -4, 4, 4, 4);
+      pushMatrix();
+      rotate(radians(180));
+      shape(tri);
+      popMatrix();
       break;
 
     case EAST:
-      triangle(0, -12, 4, -4, 4, 4);
+      pushMatrix();
+      rotate(radians(90));
+      shape(tri);
+      popMatrix();
       break;
 
     case WEST:
-      triangle(0, -12, -4, -4, -4, 4);
+      pushMatrix();
+      rotate(radians(-90));
+      shape(tri);
+      popMatrix();
       break;
   }
 
