@@ -78,11 +78,7 @@ class Scene {
 
     for (int i = 0; i < enemyArray.size(); i++) {
         JSONObject enemyData = enemyArray.getJSONObject(i);
-
-        Enemy enemy = new Enemy(
-            Direction.valueOf(enemyData.getString("facing")),
-            enemyShape
-        );
+        Enemy enemy = new Enemy(Direction.valueOf(enemyData.getString("facing")), enemyShape);
 
         int enemyX = enemyData.getInt("x");
         int enemyY = enemyData.getInt("y");
