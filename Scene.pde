@@ -12,6 +12,7 @@
  */
 
 import java.util.LinkedList;
+import java.util.HashMap;
 
 class Scene {
   private int roomWidth;
@@ -137,11 +138,12 @@ class Scene {
               room[x][y] = player;
               Position pos = new Position(x, y, this);
               positions.put(player, pos);
+              firstStage = false;
             }
-            //else { room[x][y] = null; }
+            else { room[x][y] = null; }
         }
       }
-      
+      this.entry = entry;
       //! place player
       updateActions(player);
   }
