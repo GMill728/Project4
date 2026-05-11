@@ -1,40 +1,22 @@
 {
   "roomWidth": 12,
-  "seed": 83086,
+  "seed": 3156,
   "roomHeight": 12,
   "enemies": [
     {
       "damage": 10,
-      "x": 0,
-      "facing": "SOUTH",
-      "y": 0,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 1,
-      "facing": "SOUTH",
-      "y": 2,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
       "x": 3,
-      "facing": "WEST",
-      "y": 0,
+      "facing": "SOUTH",
+      "y": 1,
       "maxHealth": 100,
       "className": "Enemy",
       "currHealth": 100
     },
     {
       "damage": 10,
-      "x": 1,
+      "x": 8,
       "facing": "SOUTH",
-      "y": 3,
+      "y": 1,
       "maxHealth": 100,
       "className": "Enemy",
       "currHealth": 100
@@ -42,34 +24,7 @@
     {
       "damage": 10,
       "x": 10,
-      "facing": "EAST",
-      "y": 0,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 3,
-      "facing": "EAST",
-      "y": 2,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 4,
-      "facing": "WEST",
-      "y": 2,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 6,
-      "facing": "NORTH",
+      "facing": "SOUTH",
       "y": 1,
       "maxHealth": 100,
       "className": "Enemy",
@@ -77,17 +32,8 @@
     },
     {
       "damage": 10,
-      "x": 7,
-      "facing": "WEST",
-      "y": 4,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 8,
-      "facing": "WEST",
+      "x": 2,
+      "facing": "SOUTH",
       "y": 2,
       "maxHealth": 100,
       "className": "Enemy",
@@ -95,90 +41,9 @@
     },
     {
       "damage": 10,
-      "x": 2,
-      "facing": "SOUTH",
-      "y": 4,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 11,
-      "facing": "EAST",
-      "y": 3,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 3,
-      "facing": "WEST",
-      "y": 3,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 4,
-      "facing": "NORTH",
-      "y": 4,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 3,
-      "facing": "NORTH",
-      "y": 5,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 0,
-      "facing": "SOUTH",
-      "y": 8,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 3,
-      "facing": "SOUTH",
-      "y": 9,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 5,
-      "facing": "NORTH",
-      "y": 6,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
       "x": 7,
-      "facing": "NORTH",
-      "y": 6,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 6,
-      "facing": "NORTH",
-      "y": 7,
+      "facing": "SOUTH",
+      "y": 2,
       "maxHealth": 100,
       "className": "Enemy",
       "currHealth": 100
@@ -186,96 +51,6 @@
     {
       "damage": 10,
       "x": 8,
-      "facing": "EAST",
-      "y": 7,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 11,
-      "facing": "SOUTH",
-      "y": 8,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 1,
-      "facing": "EAST",
-      "y": 10,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 9,
-      "facing": "SOUTH",
-      "y": 10,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 11,
-      "facing": "SOUTH",
-      "y": 9,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 7,
-      "facing": "WEST",
-      "y": 10,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 11,
-      "facing": "EAST",
-      "y": 11,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 2,
-      "facing": "NORTH",
-      "y": 9,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 5,
-      "facing": "EAST",
-      "y": 11,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 10,
-      "facing": "WEST",
-      "y": 10,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 2,
       "facing": "SOUTH",
       "y": 2,
       "maxHealth": 100,
@@ -286,7 +61,7 @@
       "damage": 10,
       "x": 0,
       "facing": "SOUTH",
-      "y": 6,
+      "y": 3,
       "maxHealth": 100,
       "className": "Enemy",
       "currHealth": 100
@@ -295,24 +70,51 @@
       "damage": 10,
       "x": 5,
       "facing": "SOUTH",
-      "y": 1,
+      "y": 3,
       "maxHealth": 100,
       "className": "Enemy",
       "currHealth": 100
     },
     {
       "damage": 10,
-      "x": 1,
+      "x": 6,
       "facing": "SOUTH",
-      "y": 1,
+      "y": 3,
       "maxHealth": 100,
       "className": "Enemy",
       "currHealth": 100
     },
     {
       "damage": 10,
-      "x": 8,
-      "facing": "NORTH",
+      "x": 7,
+      "facing": "SOUTH",
+      "y": 3,
+      "maxHealth": 100,
+      "className": "Enemy",
+      "currHealth": 100
+    },
+    {
+      "damage": 10,
+      "x": 0,
+      "facing": "SOUTH",
+      "y": 4,
+      "maxHealth": 100,
+      "className": "Enemy",
+      "currHealth": 100
+    },
+    {
+      "damage": 10,
+      "x": 6,
+      "facing": "SOUTH",
+      "y": 4,
+      "maxHealth": 100,
+      "className": "Enemy",
+      "currHealth": 100
+    },
+    {
+      "damage": 10,
+      "x": 11,
+      "facing": "SOUTH",
       "y": 4,
       "maxHealth": 100,
       "className": "Enemy",
@@ -329,27 +131,9 @@
     },
     {
       "damage": 10,
-      "x": 9,
-      "facing": "EAST",
-      "y": 3,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 2,
+      "x": 5,
       "facing": "SOUTH",
-      "y": 1,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 10,
-      "facing": "NORTH",
-      "y": 3,
+      "y": 5,
       "maxHealth": 100,
       "className": "Enemy",
       "currHealth": 100
@@ -357,44 +141,8 @@
     {
       "damage": 10,
       "x": 6,
-      "facing": "NORTH",
-      "y": 2,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 2,
-      "facing": "EAST",
-      "y": 3,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 4,
-      "facing": "NORTH",
-      "y": 0,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 4,
       "facing": "SOUTH",
-      "y": 3,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 5,
-      "facing": "SOUTH",
-      "y": 7,
+      "y": 5,
       "maxHealth": 100,
       "className": "Enemy",
       "currHealth": 100
@@ -402,116 +150,8 @@
     {
       "damage": 10,
       "x": 8,
-      "facing": "EAST",
-      "y": 11,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 1,
       "facing": "SOUTH",
-      "y": 7,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 4,
-      "facing": "NORTH",
-      "y": 10,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 5,
-      "facing": "NORTH",
-      "y": 2,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 2,
-      "facing": "EAST",
-      "y": 11,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 3,
-      "facing": "EAST",
-      "y": 7,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 2,
-      "facing": "EAST",
-      "y": 10,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 9,
-      "facing": "EAST",
-      "y": 9,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 5,
-      "facing": "SOUTH",
-      "y": 9,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 1,
-      "facing": "EAST",
-      "y": 11,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 7,
-      "facing": "NORTH",
-      "y": 9,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 11,
-      "facing": "EAST",
-      "y": 9,
-      "maxHealth": 100,
-      "className": "Enemy",
-      "currHealth": 100
-    },
-    {
-      "damage": 10,
-      "x": 7,
-      "facing": "NORTH",
-      "y": 7,
+      "y": 5,
       "maxHealth": 100,
       "className": "Enemy",
       "currHealth": 100
@@ -519,16 +159,16 @@
     {
       "damage": 10,
       "x": 10,
-      "facing": "WEST",
-      "y": 10,
+      "facing": "SOUTH",
+      "y": 5,
       "maxHealth": 100,
       "className": "Enemy",
       "currHealth": 100
     },
     {
       "damage": 10,
-      "x": 2,
-      "facing": "NORTH",
+      "x": 1,
+      "facing": "SOUTH",
       "y": 6,
       "maxHealth": 100,
       "className": "Enemy",
@@ -537,7 +177,7 @@
     {
       "damage": 10,
       "x": 6,
-      "facing": "NORTH",
+      "facing": "SOUTH",
       "y": 6,
       "maxHealth": 100,
       "className": "Enemy",
@@ -546,8 +186,125 @@
     {
       "damage": 10,
       "x": 10,
-      "facing": "EAST",
+      "facing": "SOUTH",
+      "y": 6,
+      "maxHealth": 100,
+      "className": "Enemy",
+      "currHealth": 100
+    },
+    {
+      "damage": 10,
+      "x": 4,
+      "facing": "SOUTH",
+      "y": 7,
+      "maxHealth": 100,
+      "className": "Enemy",
+      "currHealth": 100
+    },
+    {
+      "damage": 10,
+      "x": 9,
+      "facing": "SOUTH",
+      "y": 7,
+      "maxHealth": 100,
+      "className": "Enemy",
+      "currHealth": 100
+    },
+    {
+      "damage": 10,
+      "x": 3,
+      "facing": "SOUTH",
       "y": 8,
+      "maxHealth": 100,
+      "className": "Enemy",
+      "currHealth": 100
+    },
+    {
+      "damage": 10,
+      "x": 9,
+      "facing": "SOUTH",
+      "y": 8,
+      "maxHealth": 100,
+      "className": "Enemy",
+      "currHealth": 100
+    },
+    {
+      "damage": 10,
+      "x": 11,
+      "facing": "SOUTH",
+      "y": 9,
+      "maxHealth": 100,
+      "className": "Enemy",
+      "currHealth": 100
+    },
+    {
+      "damage": 10,
+      "x": 1,
+      "facing": "SOUTH",
+      "y": 10,
+      "maxHealth": 100,
+      "className": "Enemy",
+      "currHealth": 100
+    },
+    {
+      "damage": 10,
+      "x": 4,
+      "facing": "SOUTH",
+      "y": 10,
+      "maxHealth": 100,
+      "className": "Enemy",
+      "currHealth": 100
+    },
+    {
+      "damage": 10,
+      "x": 5,
+      "facing": "SOUTH",
+      "y": 10,
+      "maxHealth": 100,
+      "className": "Enemy",
+      "currHealth": 100
+    },
+    {
+      "damage": 10,
+      "x": 6,
+      "facing": "SOUTH",
+      "y": 10,
+      "maxHealth": 100,
+      "className": "Enemy",
+      "currHealth": 100
+    },
+    {
+      "damage": 10,
+      "x": 9,
+      "facing": "SOUTH",
+      "y": 10,
+      "maxHealth": 100,
+      "className": "Enemy",
+      "currHealth": 100
+    },
+    {
+      "damage": 10,
+      "x": 0,
+      "facing": "SOUTH",
+      "y": 11,
+      "maxHealth": 100,
+      "className": "Enemy",
+      "currHealth": 100
+    },
+    {
+      "damage": 10,
+      "x": 9,
+      "facing": "SOUTH",
+      "y": 11,
+      "maxHealth": 100,
+      "className": "Enemy",
+      "currHealth": 100
+    },
+    {
+      "damage": 10,
+      "x": 11,
+      "facing": "SOUTH",
+      "y": 11,
       "maxHealth": 100,
       "className": "Enemy",
       "currHealth": 100
@@ -556,11 +313,11 @@
   "firstStage": false,
   "player": {
     "damage": 10,
-    "x": 2,
-    "facing": "EAST",
-    "y": 5,
+    "x": 6,
+    "facing": "NORTH",
+    "y": 1,
     "maxHealth": 100,
     "className": "Player",
-    "currHealth": 40
+    "currHealth": 100
   }
 }

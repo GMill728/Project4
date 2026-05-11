@@ -5,10 +5,13 @@ class Obstacle extends WorldObject{
     this.rocks = obstacleSVG;
   }
   
+  public Obstacle(JSONObject json, PShape obstacleSVG) {
+  this.rocks = obstacleSVG;
+}
+
   public JSONObject serialize() {
     JSONObject object = new JSONObject();
-    //object.setInt("maxHealth", this.maxHealth);
-    //object.setInt("damage", this.damage);
+    object.setString("className", "Obstacle");
     return object;
   }
   

@@ -8,15 +8,26 @@ class Chest extends Interactable {
   public Chest(PShape goodChest, PShape evilChest)
   {
     this.amount = int(random(10, 21));
-    this.isBad = random(1) < 0.5;
+    this.isBad = random(2) == 0;
     this.interacted = false;
     this.goodC = goodChest;
     this.badC = evilChest;
     
   }
+  
+  public Chest(JSONObject json, PShape goodChest, PShape evilChest) {
+    this.amount = json.getInt("amount");
+    this.isBad = json.getBoolean("isBad");
+    this.interacted = json.getBoolean("interacted");
+    this.goodC = goodChest;
+    this.badC = evilChest;
+  }
 
   public JSONObject serialize(){
         JSONObject json = new JSONObject();
+        json.setInt("amount", amount);
+        json.setBoolean("isBad", isBad);
+        json.setBoolean("interacted", interacted);
         return json; 
     }
   

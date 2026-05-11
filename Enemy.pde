@@ -60,18 +60,13 @@ class Enemy extends Actor {
 
       
     };
-  
-    for(int i = 0; i < actions.length; i++)
-    {
-      int index = int(random(actions.length));
-      Action action = actions[index];
-      
-      if(this.getActionValidity(action))
-      {
-        this.facing = action.direction;;
-        return action;
-      }
+    
+    Action action = actions[int(random(actions.length))];
+    if(this.getActionValidity(action)){
+      this.facing = action.direction;
+      return action;
     }
+
     return null;
 }
     

@@ -113,7 +113,6 @@ class Scene {
     if (entry == null) {
       return;
     }
-
     //! clear all things once they exist i.e. thing.clear();
     room = new WorldObject [roomWidth][roomHeight];
     positions.clear();
