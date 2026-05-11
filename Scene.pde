@@ -126,12 +126,22 @@ class Scene {
     int PSY = roomHeight/2; //Initial player spawn Y
     
     random(seed);
+
     
-    //
     for (int x = 0;x < roomWidth; x++)
     {
       for(int y = 0; y < roomHeight; y++)
       {
+
+        int xCenter = roomWidth / 2;
+            int yCenter = roomHeight / 2;
+            int radius = min(roomWidth, roomHeight) / 2;
+
+            if (abs(x - xCenter) + abs(y - yCenter) > radius){//if it's past the manhattan distance then wall it off
+                room[x][y] = new Wall();
+                continue;
+            }
+
         boolean isDoor = (x == PSX && y == 0)||(x == PSX && y == roomHeight - 1)
             ||(x == 0 && y == PSY)||(x == roomWidth - 1 && y == PSY);
               
@@ -354,6 +364,7 @@ class Scene {
           Direction[] directions = Direction.values();
           Direction direction = directions[int(random(directions.length))];
           this.player = new Player(direction, playerShape);
+          this.firstStage = true;
           this.reset(direction);
           return true;
         }
