@@ -55,6 +55,8 @@ class Scene {
 
     reset(Direction.NORTH);
    }
+   
+   
    Scene(JSONObject file, PShape enemyShape, PShape goodChest, PShape evilChest, PShape obstacle, PShape playerShape) {
 
     this.roomWidth = file.getInt("roomWidth");
@@ -66,6 +68,7 @@ class Scene {
     this.goodChest = goodChest;
     this.evilChest = evilChest;
     this.obstacle = obstacle;
+    this.playerShape = playerShape;
 
     this.room = new WorldObject[roomWidth][roomHeight];
     this.enemies = new LinkedList<Actor>();
@@ -80,9 +83,8 @@ class Scene {
 
     int playerX = playerData.getInt("x");
     int playerY = playerData.getInt("y");
-    room[playerX][playerY] = player;
-
-    positions.put(player, new Position(playerX, playerY, this));
+    
+    Spawn(player, playerX, playerY);
 
     //load enemies
     JSONArray enemyArray = file.getJSONArray("enemies");
@@ -123,17 +125,41 @@ class Scene {
     int PSX = roomWidth/2; //Initial player spawn X
     int PSY = roomHeight/2; //Initial player spawn Y
     
-    randomSeed(seed); //seeds all random numbers goin forwards
-    //! ^ uncomment after testing
-
-    if (firstStage){
-      room[PSX][PSY] = player;
-      Position pos = new Position(PSX, PSY, this);
-      positions.put(player, pos);
+    random(seed);
+    
+    //
+    for (int x = 0;x < roomWidth; x++)
+    {
+      for(int y = 0; y < roomHeight; y++)
+      {
+        boolean isDoor = (x == PSX && y == 0)||(x == PSX && y == roomHeight - 1)
+            ||(x == 0 && y == PSY)||(x == roomWidth - 1 && y == PSY);
+              
+        if(!isDoor)
+          continue;
+          
+        devDoor door = new devDoor();
+        Spawn(door, x, y);
+        
+        Direction dir = null;
+        
+        if(y == 0)
+          dir = Direction.NORTH;
+         else if(y == roomHeight - 1)
+           dir = Direction.SOUTH;
+         else if(x == 0)
+           dir = Direction.WEST;
+         else if(x == roomWidth - 1)
+           dir = Direction.EAST;
+           
+         doors.put(dir, new Position(x, y, this));
+      }
     }
-    else {
-      int spawnX = PSX;
-      int spawnY = PSY;
+    
+    int spawnX = PSX;
+    int spawnY = PSY;
+
+    if (!firstStage){
 
       if (entry == Direction.NORTH) {
         spawnX = roomWidth / 2;
@@ -151,66 +177,35 @@ class Scene {
         spawnX = roomWidth - 2;
         spawnY = roomHeight / 2;
       }
-
-      room[spawnX][spawnY] = player;
-
-      Position pos = new Position(spawnX, spawnY, this);
-      positions.put(player, pos);
     }
     
+    Spawn(player, spawnX, spawnY);
     firstStage = false;
+    
+    
+
 
     for (int y = 0; y < roomHeight; y++) {
         for (int x = 0; x < roomWidth; x++) {
 
             if (room[x][y] != null){ continue; }
             float r = random(1);
-            
-            //!BUG I believe the player is replacing the door object in tiles... I don't know how to fix this
-
-            boolean isDoor = false;
-
-            if ((x == roomWidth / 2 && y == 0)||(x == roomWidth / 2 && y == roomHeight - 1)
-            ||(x == 0 && y == roomHeight / 2)||(x == roomWidth - 1 && y == roomHeight / 2))
-            {
-              isDoor = true;
-            }
-
-            if (isDoor) {
-                room[x][y] = new devDoor();
-                Direction dir = null;
-
-                if (y == 0) dir = Direction.NORTH;
-                else if (y == roomHeight - 1) dir = Direction.SOUTH;
-                else if (x == 0) dir = Direction.WEST;
-                else if (x == roomWidth - 1) dir = Direction.EAST;
-
-                doors.put(dir, new Position(x, y, this));
-
-                continue;
-            }
           
-            else if (r < 0.2) {
+            if (r < 0.2) {
               Enemy enemy = new Enemy(Direction.SOUTH, enemyShape);
-              room[x][y] = enemy;
-              Position pos = new Position(x, y, this);
-
-              positions.put(enemy, pos);
-              enemies.add(enemy);
+              Spawn(enemy, x, y);
             } 
             else if (r < 0.3) { 
               Chest chest = new Chest(goodChest, evilChest);
-              room[x][y] = chest;
+              Spawn(chest, x, y);
             }
             else if (r < 0.35) { 
               Obstacle obstacle = new Obstacle(this.obstacle);
-              room[x][y] = obstacle;
+              Spawn(obstacle, x, y);
             }
-            else { room[x][y] = null; }
         }
       }
       this.entry = entry;
-      
       updateActions(player);
   }
 
@@ -247,6 +242,49 @@ class Scene {
 
     return data;
   }
+  
+  
+  
+  //Handles placement
+  private boolean Spawn(WorldObject obj, int x , int y)
+  {
+    if(x < 0 || x >= roomWidth || y < 0 || y >= roomHeight)
+       return false;
+    if(room[x][y] != null)
+      return false;
+      
+     if(obj instanceof Player)
+     {
+       for(int i = 0; i < roomWidth; i++)
+       {
+         for (int j = 0 ; j < roomHeight; j++)
+         {
+           if(room[i][j] instanceof Player)
+           {
+             room[i][j] = null;
+           }
+         }
+       }
+     }
+         
+      
+      room[x][y] = obj;
+      
+      positions.put(obj, new Position(x, y, this));
+      
+    if(obj instanceof Enemy)
+    {
+      enemies.add((Enemy)obj);
+    }
+    
+    /*if(obj != null)
+    {
+      positions.remove(obj);
+      positions.put(obj, new Position(x, y, this));
+    }
+    */
+    return true;
+  }
 
   /**
    *      Method: private updateActions()
@@ -276,7 +314,7 @@ class Scene {
     if (this.player == null || this.player.getHealth() == 0) {
       Direction[] directions = Direction.values();
       Direction direction = directions[int(random(directions.length))];
-      this.player = new Player(direction, playerShape);
+      //this.player = new Player(direction, playerShape);
       this.reset(direction);
     }
 
@@ -356,7 +394,7 @@ class Scene {
     if (!action.isAttack && actor == this.player && action.direction != this.entry.inverse() && this.enemies.size() == 0) {
       Position door = this.doors.get(action.direction);
 
-      if (door != null && door.equals(position)) {
+      if (door != null && position.getX() == door.getX() && position.getY() == door.getY()) {
         this.reset(action.direction);
         return true;
       }
@@ -383,19 +421,49 @@ class Scene {
 
       return isActionValid;
     }
-
-    // Check if the actor can interact with an interactable object
-    if (actor == this.player && this.room[x][y] instanceof Interactable) {
-      Interactable interactable = (Interactable)this.room[x][y];
-
-      if (!interactable.interact(this.player)) {
-        return false;
+    
+    
+    Interactable interactable = null;
+    WorldObject target = this.room[x][y];
+    
+    if (target instanceof devDoor) 
+    {
+      if (actor == this.player) 
+      {
+        this.reset(action.direction);
+        return true;
       }
-    } else if (this.room[x][y] != null) {
       return false;
     }
-
-    // Check if the actor can move
+    
+    if (target instanceof Interactable) 
+    {
+      interactable = (Interactable) target;
+    
+      if (actor != this.player) 
+      {
+        return false;
+      }
+    
+      if (!interactable.interact(this.player)) 
+      {
+        return false;
+      }
+    
+      if (interactable instanceof Chest) 
+      {
+        this.room[x][y] = null;
+        this.positions.remove(interactable);
+      }
+    
+      return false;
+    }
+    
+    if (target != null) 
+    {
+      return false;
+    }
+    
     this.room[x][y] = actor;
     this.room[position.getX()][position.getY()] = null;
     position.move(action.direction);

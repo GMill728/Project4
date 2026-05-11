@@ -109,6 +109,10 @@ class Player extends Actor {
       break;
     }
 
+  if(action == null)
+  {
+    return null;
+  }
     // Check if the action can be performed
     return this.getActionValidity(action) ? action : null;
   }
@@ -148,18 +152,7 @@ class Player extends Actor {
 
  /**NEW DRAW METHOD FOR PLAYER */
  public void draw() {
-  /*pushStyle();
-
-  //Player body
-  fill(0, 0, 255);
-  rectMode(CENTER);
-  rect(0, 0, 20, 20);
-
-  //Direction indicator
-  fill(255);
-
-  PShape tri = createShape(TRIANGLE, 0, -12, -6, -4, 6, -4);
-*/
+  
 pushMatrix();
       switch(this.facing)
       {
@@ -170,51 +163,22 @@ pushMatrix();
           scale(1, 1);
           break;
         case EAST:
-          rotate(0);
           scale(-1, 1);
           break;
         case WEST:
-          rotate(0);
           scale(1, 1);
           break;  
       }
       shapeMode(CENTER);
+      if(P == null)
+      println("Shape is null");
+      else
       shape(P, -10, -5, 40, 40);
+      
       popMatrix();
       
       drawPlayerHealthBar();
       shapeMode(CORNER);
-      /*
-  switch(this.facing) {
-
-    case NORTH:
-      shape(tri);
-      break;
-
-    case SOUTH:
-      pushMatrix();
-      rotate(radians(180));
-      shape(tri);
-      popMatrix();
-      break;
-
-    case EAST:
-      pushMatrix();
-      rotate(radians(90));
-      shape(tri);
-      popMatrix();
-      break;
-
-    case WEST:
-      pushMatrix();
-      rotate(radians(-90));
-      shape(tri);
-      popMatrix();
-      break;
-  }
-
-  popStyle();
-  */
   
   super.draw();
  }
