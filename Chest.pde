@@ -47,7 +47,7 @@ class Chest extends Interactable {
       {
         pushMatrix();
         shapeMode(CENTER);
-        shape(goodC, 0, 0, 40, 40);
+        shape(goodC, -5, -10, 40, 40);
         popMatrix();
       }
       else
@@ -56,14 +56,14 @@ class Chest extends Interactable {
         {
           pushMatrix();
           shapeMode(CENTER);
-          shape(badC, 0, 0, 40, 40);
+          shape(badC, -5, -10, 40, 40);
           popMatrix();
         }
         else
         {
           pushMatrix();
           shapeMode(CENTER);
-          shape(goodC, 0, 0, 40, 40);
+          shape(goodC, -5, -10, 40, 40);
           popMatrix();
         }
       }   

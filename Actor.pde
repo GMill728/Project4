@@ -133,7 +133,7 @@ abstract class Actor extends WorldObject {
   abstract public Action getAction();
 
   public void draw() {
-    pushMatrix();
+    /*pushMatrix();
     pushStyle();
 
     //Draw in scene space
@@ -155,6 +155,46 @@ abstract class Actor extends WorldObject {
     rect(0, 100 - healthHeight, 20, healthHeight);
 
     popStyle();
-    popMatrix();
+    popMatrix();*/
+  }
+  
+  public void drawPlayerHealthBar(){
+     pushMatrix();
+    pushStyle();
+
+    //Draw in scene space
+    resetMatrix();
+
+    //Top-left position
+    translate(20, 20);
+
+    //Health bar placement
+    fill(255, 0, 0);
+    rect(0, 0, 20, 100);
+
+    //Current HP
+    fill(0, 255, 0);
+
+    float healthHeight = 100 * getHealth();
+
+    //Fill "upwards"
+    rect(0, 100 - healthHeight, 20, healthHeight);
+
+    popStyle();
+    popMatrix();   
+  }
+  
+  public void drawEnemyHealthBar(){
+    push();
+    float hp = getHealth();
+    translate(0, -40 * 0.6);
+    fill (255, 0, 0);
+    rectMode(CENTER);
+    rect(0, 0, 30, 4);
+    
+    fill(0,255, 0);
+    rectMode(CORNER);
+    rect(-30/2, -4/2, 30 * hp, 4);
+    pop();
   }
 }
