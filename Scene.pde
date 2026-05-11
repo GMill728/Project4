@@ -126,6 +126,9 @@ class Scene {
     randomSeed(seed); //seeds all random numbers goin forwards
     //! ^ uncomment after testing
 
+
+    //place walls for culling
+    
     if (firstStage){
       room[PSX][PSY] = player;
       Position pos = new Position(PSX, PSY, this);
@@ -165,6 +168,15 @@ class Scene {
 
             if (room[x][y] != null){ continue; }
             float r = random(1);
+
+            int xCenter = roomWidth / 2;
+            int yCenter = roomHeight / 2;
+            int radius = min(roomWidth, roomHeight) / 2;
+
+            if (abs(x - xCenter) + abs(y - yCenter) > radius){//if it's past the manhattan distance then wall it off
+                room[x][y] = new Wall();
+                continue;
+            }
             
             //!BUG I believe the player is replacing the door object in tiles... I don't know how to fix this
 
