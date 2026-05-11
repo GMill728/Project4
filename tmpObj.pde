@@ -1,3 +1,14 @@
+/**
+ *      Author: Gavin Mills
+ *      Course: CPSC 220
+ *  Instructor: Prof. Morales
+ *     Created: 2026-05-8
+ *         Due: 2026-05-10
+ *  Assignment: Project 4
+ *        File: Wall.pde
+ * Description: child class of WorldObject which is temporary
+ * for testing, it can change colors and was used to represent different types of objects.
+ */
 class tmpObj extends WorldObject{
     public int clr = 0;
     public JSONObject serialize(){

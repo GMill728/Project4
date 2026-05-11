@@ -1,3 +1,13 @@
+/**
+ *      Author: Catherine Garcia
+ *      Course: CPSC 220
+ *  Instructor: Prof. Morales
+ *     Created: 2026-04-07
+ *         Due: 2026-05-10
+ *  Assignment: Project 4
+ *        File: Enemy.pde
+ * Description: The enemy class represents an enemy in the game.
+ */
 class Enemy extends Actor {
   PShape e;
 
@@ -7,12 +17,22 @@ class Enemy extends Actor {
       this.e = enemySVG;
     }
     
+    /** Method: serialize)
+     *  Parameters: void
+     *     Return: JSONObject
+     * Description: Serializes the enemy to a JSON object.
+     */
     public JSONObject serialize() {
     JSONObject object = super.serialize();
     object.setString("className", "Enemy");
     return object;
     }
     
+    /** Method: getAction()
+     *  Parameters: void
+     *     Return: Action
+     * Description: Gets the enemy actionl.
+     */
     public Action getAction(){
     
     // Convert key to action
@@ -60,7 +80,7 @@ class Enemy extends Actor {
 
       
     };
-  
+    //Randomly select action
     for(int i = 0; i < actions.length; i++)
     {
       int index = int(random(actions.length));
@@ -76,6 +96,11 @@ class Enemy extends Actor {
 }
     
     
+    /** Method: draw()
+     *  Parameters: void
+     *      Return: void
+     * Description: Draws the enemy.
+     */
     public void draw()
     {
       pushMatrix();
@@ -96,6 +121,7 @@ class Enemy extends Actor {
           scale(1, 1);
           break;  
       }
+
       //call actors/players draw for health bar
       shapeMode(CENTER);
       shape(e, 0, 0, 40, 40);

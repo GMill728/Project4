@@ -30,11 +30,14 @@ class Scene {
 
 
   /**
-   *      Method: private reset()
-   *  Parameters: Direction entry - The direction from which
-   *                                the player entered the room
+   *      Method: Scene() - constructor
+   *  Parameters: PShape enemyShape - The shape to use for the enemy
+   *              PShape goodChest - The shape to use for the good chest
+   *              PShape evilChest - The shape to use for the evil chest
+   *              PShape obstacle - The shape to use for the obstacle
+   *              PShape playerShape - The shape to use for the player
    *      Return: void
-   * Description: Resets the room to a random state
+   * Description: Initializes the scene with the given shapes.
    */
    Scene(PShape enemyShape, PShape goodChest, PShape evilChest, PShape obstacle, PShape playerShape) {
     seed = int(random(100000));
@@ -56,7 +59,17 @@ class Scene {
     reset(Direction.NORTH);
    }
    
-   
+   /**
+   *      Method: Scene() - constructor
+   *  Parameters: JSONObject file - The JSON file to load the scene
+   *              PShape enemyShape - The shape to use for the enemy
+   *              PShape goodChest - The shape to use for the good chest
+   *              PShape evilChest- The shape to use for the evil chest
+   *              PShape obstacle - The shape to use for the obstacle
+   *              PShape playerShape - The shape to use for the player
+   *      Return: void
+   * Description: Initializess the scene with the given JSON file and shapes.
+   */
    Scene(JSONObject file, PShape enemyShape, PShape goodChest, PShape evilChest, PShape obstacle, PShape playerShape) {
 
     this.roomWidth = file.getInt("roomWidth");
@@ -127,7 +140,7 @@ class Scene {
     
     random(seed);
 
-    
+    //loop through 2D array of all positions in room
     for (int x = 0;x < roomWidth; x++)
     {
       for(int y = 0; y < roomHeight; y++)
@@ -137,11 +150,13 @@ class Scene {
             int yCenter = roomHeight / 2;
             int radius = min(roomWidth, roomHeight) / 2;
 
-            if (abs(x - xCenter) + abs(y - yCenter) > radius){//if it's past the manhattan distance then wall it off
+            //if it's past the manhattan distance then wall it off
+            if (abs(x - xCenter) + abs(y - yCenter) > radius){
                 room[x][y] = new Wall();
                 continue;
             }
-
+        
+            //if it's the center of a wall make it a door
         boolean isDoor = (x == PSX && y == 0)||(x == PSX && y == roomHeight - 1)
             ||(x == 0 && y == PSY)||(x == roomWidth - 1 && y == PSY);
               
@@ -169,6 +184,7 @@ class Scene {
     int spawnX = PSX;
     int spawnY = PSY;
 
+    //if this is not the first stage then change spawn to where they came from
     if (!firstStage){
 
       if (entry == Direction.NORTH) {
@@ -191,10 +207,8 @@ class Scene {
     
     Spawn(player, spawnX, spawnY);
     firstStage = false;
-    
-    
 
-
+    //spawn all the environment including npcs
     for (int y = 0; y < roomHeight; y++) {
         for (int x = 0; x < roomWidth; x++) {
 
@@ -219,6 +233,12 @@ class Scene {
       updateActions(player);
   }
 
+  /**
+   *      Method: serialize()
+   *  Parameters: void
+   *      Return: JSONObject - The JSON object representing the scene
+   * Description: Serializes the scene with a few JSON objects.
+   */
   JSONObject serialize() {
     JSONObject data = new JSONObject();
 
@@ -252,8 +272,6 @@ class Scene {
 
     return data;
   }
-  
-  
   
   //Handles placement
   private boolean Spawn(WorldObject obj, int x , int y)
@@ -617,7 +635,7 @@ class Scene {
             
             if (abs(z - xCenter) + abs(i - yCenter) > radius) {
               //this is something I found for pathfinding called manhattan distance on a 
-              //youtube video a while ago
+              //youtube video a while ago for Unity
               //here's a link to the formula I used on this project:  https://www.geeksforgeeks.org/data-science/manhattan-distance/
               
               x += size;

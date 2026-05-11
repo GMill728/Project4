@@ -1,9 +1,20 @@
+/**
+ *      Author: Gavin Mills
+ *      Course: CPSC 220
+ *  Instructor: Prof. Morales
+ *     Created: 2026-05-9
+ *         Due: 2026-05-10
+ *  Assignment: Project 4
+ *        File: devDoor.pde
+ * Description: child class of Interactable.  It's a simple door which we
+ * ended up keeping.
+ */
 class devDoor extends Interactable {
     public boolean interact(Player player) {
     return true;
 }
-
-    public JSONObject serialize(){
+    
+    public JSONObject serialize(){//placeholder serializations
         JSONObject json = new JSONObject();
         return json; 
     }
