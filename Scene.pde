@@ -402,9 +402,8 @@ class Scene {
     if (actor == this.player && this.room[x][y] instanceof Interactable) {
       Interactable interactable = (Interactable)this.room[x][y];
 
-      if (!interactable.interact(this.player)) {
-        return false;
-      }
+      // Player interacts with the object but does't move into its tile (was breaking game)
+      return interactable.interact(this.player);
     } else if (this.room[x][y] != null) {
       return false;
     }
