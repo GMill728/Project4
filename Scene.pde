@@ -289,6 +289,7 @@ class Scene {
       Direction[] directions = Direction.values();
       Direction direction = directions[int(random(directions.length))];
       this.player = new Player(direction, playerShape);
+      this.firstStage = true;
       this.reset(direction);
     }
 
@@ -328,6 +329,7 @@ class Scene {
           Direction[] directions = Direction.values();
           Direction direction = directions[int(random(directions.length))];
           this.player = new Player(direction, playerShape);
+          this.firstStage = true;
           this.reset(direction);
           return true;
         }

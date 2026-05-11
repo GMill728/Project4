@@ -179,7 +179,9 @@ pushMatrix();
           break;  
       }
       shapeMode(CENTER);
-      shape(P, -10, -5, 40, 40);
+      if (P != null) {
+        shape(P, -10, -5, 40, 40);
+      }
       popMatrix();
       
       drawPlayerHealthBar();
